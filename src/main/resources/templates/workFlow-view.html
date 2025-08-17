@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Registration Status</title>
+    <style>
+        .success { color: green; } .error { color: red; }
+        .timestamp { font-style: italic; color: #555; }
+        .container { max-width: 600px; margin: auto; padding: 30px; background: #f9f9f9; border-radius: 8px; }
+        .user-data { background: #eef; padding: 15px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 th:classappend="${response.status == 'success'} ? ' success' : ' error'"
+        th:text="${response.message}">Status Message</h2>
+    <p class="timestamp">
+        <strong>Time:</strong>
+        <span th:text="${#temporals.format(response.timestamp, 'dd-MM-yyyy HH:mm:ss')}">Time</span>
+    </p>
+
+    <div class="user-data" th:if="${response.data != null}">
+        <h3>Registered Customer Details:</h3>
+        <p><strong>Name:</strong> <span th:text="${response.data.name}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${response.data.email}"></span></p>
+        <p><strong>Mobile:</strong> <span th:text="${response.data.mobileNumber}"></span></p>
+    </div>
+</div>
+</body>
+</html>
