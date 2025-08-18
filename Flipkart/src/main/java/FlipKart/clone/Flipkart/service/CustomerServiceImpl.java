@@ -1,7 +1,6 @@
 package FlipKart.clone.Flipkart.service;
 
 import FlipKart.clone.Flipkart.entity.Customer;
-import FlipKart.clone.Flipkart.enums.UserType;
 import FlipKart.clone.Flipkart.repository.CustomerRepository;
 import FlipKart.clone.Flipkart.uniqueIdGenerator.CartIdGenerator;
 import FlipKart.clone.Flipkart.uniqueIdGenerator.CustomerIdGenerator;
@@ -19,10 +18,9 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     public Customer saveCustomer(Customer customer) {
-
         log.info("Service class: method name saveUser: new user is being saved with the name: {}", customer.getName());
 
-        customer.setType(UserType.CUSTOMER);
+        customer.setType("CUSTOMER");
 
         log.info("Generating unique ID for the customer {}", customer);
         customer.setCustomerId(CustomerIdGenerator.generateUniqueCustId());

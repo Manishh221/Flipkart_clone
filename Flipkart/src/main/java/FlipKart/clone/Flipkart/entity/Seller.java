@@ -1,11 +1,7 @@
 package FlipKart.clone.Flipkart.entity;
 
-import FlipKart.clone.Flipkart.enums.UserType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 @Entity
@@ -19,15 +15,14 @@ public class Seller {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    int count;
 
     @Column(name = "name")
-    @NotBlank(message = "name is mandatory")
-    @Pattern(regexp = "^[A-Za-z ]+$", message = "name should be in correct formate:")
+    @NotNull(message = "name is mandatory")
     String name;
 
     @Column(name = "sellerShopName")
-    @NotBlank(message = "seller shop name is mandatory:")
+    @NotNull(message = "seller shop name is mandatory:")
     String sellerShopName;
 
     @Column(name = "sellerId", unique = true)
@@ -37,17 +32,15 @@ public class Seller {
     String GSTNumber;
 
     @Column(name = "number", unique = true)
-    @NotBlank(message = "mobile number is mandatory")
+    @NotNull(message = "mobile number is mandatory")
     String number;
 
     @Column(name = "email", unique = true)
-    @NotBlank(message = "email is mandatory")
-    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$",
-            message = "Invalid email format, Please provide valid email formate: ")
+    @NotNull(message = "email is mandatory")
     String email;
 
     @Column(name = "type")
-    UserType type;
+    String type;
 
     @Column(name = "panNumber", unique = true)
     String panNumber;

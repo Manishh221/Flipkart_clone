@@ -1,11 +1,7 @@
 package FlipKart.clone.Flipkart.entity;
 
-import FlipKart.clone.Flipkart.enums.UserType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 @Entity
@@ -22,17 +18,16 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int count;
 
-    @NotBlank(message = "Name is Mandatory")
+    @NotNull(message = "Name is Mandatory")
     @Column(name = "name")
     String name;
 
-    @NotBlank(message = "Mobile number is mandatory")
+    @NotNull(message = "Mobile number is mandatory")
     @Column(name = "mobileNumber")
     String mobileNumber;
 
     @Column(name = "email", unique = true)
-    @NotBlank(message = "Email is mandatory")
-    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$", message = "Invalid email format")
+    @NotNull(message = "Email is mandatory")
     String email;
 
     @Column(name = "customerId", unique = true)
@@ -42,5 +37,5 @@ public class Customer {
     String customerCartId;
 
     @Column(name = "type")
-    UserType type;
+    String type;
 }

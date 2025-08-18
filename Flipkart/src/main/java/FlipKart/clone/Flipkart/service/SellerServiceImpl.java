@@ -1,7 +1,6 @@
 package FlipKart.clone.Flipkart.service;
 
 import FlipKart.clone.Flipkart.entity.Seller;
-import FlipKart.clone.Flipkart.enums.UserType;
 import FlipKart.clone.Flipkart.repository.SellerRepository;
 import FlipKart.clone.Flipkart.uniqueIdGenerator.GSTNumberGenerator;
 import FlipKart.clone.Flipkart.uniqueIdGenerator.PanNumberGenerator;
@@ -23,8 +22,7 @@ public class SellerServiceImpl implements SellerService {
         log.info("generating unique sallerId for the seller {}: ", seller.getName());
         seller.setSellerId(SellerIdGenerator.generateUniqueCustId());
 
-        log.info("setting user type for the seller{}", seller);
-        seller.setType(UserType.SELLER);
+        seller.setType("SELLER");
 
         log.info("generating unique GST number for the seller {}:", seller.getName());
         seller.setGSTNumber(GSTNumberGenerator.generateGSTId());
