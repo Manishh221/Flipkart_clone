@@ -1,12 +1,17 @@
 package FlipKart.clone.Flipkart.entity;
 
 import FlipKart.clone.Flipkart.enums.UserType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -14,9 +19,9 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
+@Builder
 @Table(name = "customer")
 public class Customer {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +46,32 @@ public class Customer {
     @Column(name = "customerCartId", unique = true)
     String customerCartId;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
-    UserType type;
+    UserType userType;
+
+    @CreationTimestamp
+    @JsonFormat(pattern = "d MMMM yyyy")
+    @Column(name = "CreatedDate")
+    private LocalDate createdDate;
+
+    @CreationTimestamp
+    @JsonFormat(pattern = "HH:mm:ss")
+    @Column(name = "createdTime")
+    private LocalTime createdTime;
+
+    @UpdateTimestamp
+    @JsonFormat(pattern = "d MMMM yyyy")
+    @Column(name = "updatedDate")
+    private LocalDate updatedDate;
+
+    @UpdateTimestamp
+    @JsonFormat(pattern = "HH:mm:ss")
+    @Column(name = "updatedTime")
+    private LocalTime updatedTime;
+
+    @NotBlank(message = "customer address is mandatory: ")
+    @Column(name = "address", length = 300)
+    private String dropAddress;
+
 }

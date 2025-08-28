@@ -1,51 +1,45 @@
 package FlipKart.clone.Flipkart.entity;
 
+import FlipKart.clone.Flipkart.converter.JsonConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.Map;
 
-
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@ToString
-@Entity
-@Table(name = "orders")
+@NoArgsConstructor
+@Builder
+@Entity(name = "customerOrder")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Convert(converter = JsonConverter.class)
+    @Column(columnDefinition = "json", name = "customerDetails")
+    private Customer customerDetails;
 
-    @Column(name = "numberNumber", unique = true)
-    private String orderNumber;
+    @Convert(converter = JsonConverter.class)
+    @Column(columnDefinition = "json", name = "sellerDetails")
+    private Seller sellerDetails;
 
-    @Column(name = "product")
-    private List<Product> product;
+    @Convert(converter = JsonConverter.class)
+    @Column(columnDefinition = "json", name = "productDetails")
+    private Product productDetails;
 
-    @Column(name = "qty")
+    @Column(name = "quantity")
     private int qty;
 
-    @Column(name = "customer")
-    private Customer customer;
-
-    @Column(name = "seller")
-    private Map<Seller, Product> item;
-
-    @Column(name = "totalPrice")
-    private float totalPrice;
+    @Column(name = "orderId", length = 10, unique = true)
+    private String orderId;
 
     @CreationTimestamp
     @JsonFormat(pattern = "d MMMM yyyy")

@@ -3,20 +3,19 @@ package FlipKart.clone.Flipkart.controller;
 import FlipKart.clone.Flipkart.entity.Seller;
 import FlipKart.clone.Flipkart.service.SellerService;
 import jakarta.validation.Valid;
-import lombok.Generated;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-@Controller
+
+@RestController
+@CrossOrigin(origins = "*")
 @Slf4j
 public class SellerController {
 
@@ -26,7 +25,7 @@ public class SellerController {
     @ResponseBody
     @PostMapping("/saveSeller")
     public ResponseEntity<Map<String, Object>> saveSeller(@Valid @RequestBody Seller seller) {
-        log.info("seller Controllr: {}", seller);
+        log.info("seller Controller: {}", seller);
 
         Seller saveSeller = sellerService.saveSeller(seller);
 

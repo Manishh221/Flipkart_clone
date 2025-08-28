@@ -1,6 +1,8 @@
 package FlipKart.clone.Flipkart.controller;
 
 import FlipKart.clone.Flipkart.entity.Product;
+import FlipKart.clone.Flipkart.enums.MainCategory;
+import FlipKart.clone.Flipkart.enums.SubCategory;
 import FlipKart.clone.Flipkart.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -25,12 +27,12 @@ public class ProductController {
     @ResponseBody
     @PostMapping("/saveProduct")
     public ResponseEntity<Map<String, Object>> saveProduct(@Valid @RequestBody Product product) {
-        
+
         log.info("class- Controller: is reached {}", product);
         Product saveProduct = productService.saveProduct(product);
         Map<String, Object> response = new HashMap<>();
-        response.put("message", "Product is successfully saved");
         response.put("data", saveProduct);
+        response.put("message", "Product is successfully saved");
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

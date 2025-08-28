@@ -1,19 +1,23 @@
 package FlipKart.clone.Flipkart.entity;
 
 import FlipKart.clone.Flipkart.enums.UserType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Builder
 @Table(name = "seller")
 public class Seller {
 
@@ -26,9 +30,9 @@ public class Seller {
     @Pattern(regexp = "^[A-Za-z ]+$", message = "name should be in correct formate:")
     String name;
 
-    @Column(name = "sellerShopName")
+    @Column(name = "businessName")
     @NotBlank(message = "seller shop name is mandatory:")
-    String sellerShopName;
+    String businessName;
 
     @Column(name = "sellerId", unique = true)
     String sellerId;
@@ -46,10 +50,42 @@ public class Seller {
             message = "Invalid email format, Please provide valid email formate: ")
     String email;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
     UserType type;
 
+    @NotBlank(message = "Business type is mandatory: ")
+    @Column(name = "businessType")
+    String businessType;
+
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Product> products;
+
     @Column(name = "panNumber", unique = true)
     String panNumber;
+
+    @CreationTimestamp
+    @JsonFormat(pattern = "d MMMM yyyy")
+    @Column(name = "CreatedDate")
+    private LocalDate createdDate;
+
+    @CreationTimestamp
+    @JsonFormat(pattern = "HH:mm:ss")
+    @Column(name = "createdTime")
+    private LocalTime createdTime;
+
+    @UpdateTimestamp
+    @JsonFormat(pattern = "d MMMM yyyy")
+    @Column(name = "updatedDate")
+    private LocalDate updatedDate;
+
+    @UpdateTimestamp
+    @JsonFormat(pattern = "HH:mm:ss")
+    @Column(name = "updatedTime")
+    private LocalTime updatedTime;
+
+    @NotBlank(message = "Vendor address is mandatory: ")
+    @Column(name = "address", length = 300)
+    private String pickUpAddress;
 
 }

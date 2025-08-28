@@ -22,7 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         log.info("Service class: method name saveUser: new user is being saved with the name: {}", customer.getName());
 
-        customer.setType(UserType.CUSTOMER);
+        customer.setUserType(UserType.CUSTOMER);
 
         log.info("Generating unique ID for the customer {}", customer);
         customer.setCustomerId(CustomerIdGenerator.generateUniqueCustId());
