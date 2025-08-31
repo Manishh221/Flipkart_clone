@@ -53,4 +53,8 @@ public class CustomerServiceImpl implements CustomerService {
 
         return customerRepository.existsByCustomerId(customerId);
     }
+
+    public Customer findCustomerById(String customerId){
+        return customerRepository.findCustomerById(customerId);
+    }
 }

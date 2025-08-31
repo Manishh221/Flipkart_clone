@@ -1,6 +1,7 @@
 package FlipKart.clone.Flipkart.controller;
 
 import FlipKart.clone.Flipkart.entity.Customer;
+import FlipKart.clone.Flipkart.service.CustomerService;
 import FlipKart.clone.Flipkart.service.CustomerServiceImpl;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +43,7 @@ public class CustomerController {
 
     @ResponseBody
     @PostMapping("/saveCustomer")
-    public ResponseEntity<Map<String, Object>> FetchUserInfo(@Valid @RequestBody Customer customer) {
+    public ResponseEntity<Map<String, Object>> saveCustomerInfo(@Valid @RequestBody Customer customer) {
         log.info("Controller: class, method name saveCustomer: customer is being transfer to service class");
         Customer saveCustomer = customerService.saveCustomer(customer);
 
@@ -51,5 +52,13 @@ public class CustomerController {
         response.put("data", saveCustomer);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @ResponseBody
+    @GetMapping("/getCustomerById/{customerId}")
+    public ResponseEntity<Customer> findCustomerById(@PathVariable String customerId){
+        log.info("Controller: finding customer by id: {}", customerId);
+        Customer customer = customerService.findCustomerById(customerId);
+        return new ResponseEntity<>(customer, HttpStatus.FOUND);
     }
 }
