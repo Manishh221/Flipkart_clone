@@ -1,13 +1,18 @@
 package FlipKart.clone.Flipkart.entity;
 
 import FlipKart.clone.Flipkart.converter.JsonConverter;
+import FlipKart.clone.Flipkart.dto.orderResponseDTO.CustomerResponseDTO;
+import FlipKart.clone.Flipkart.dto.orderResponseDTO.ProductResponseDTO;
+import FlipKart.clone.Flipkart.dto.orderResponseDTO.SellerResponseDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
@@ -23,22 +28,23 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Convert(converter = JsonConverter.class)
-    @Column(columnDefinition = "json", name = "customerDetails")
-    private Customer customerDetails;
 
-    @Convert(converter = JsonConverter.class)
-    @Column(columnDefinition = "json", name = "sellerDetails")
-    private Seller sellerDetails;
+    @Type(JsonType.class)
+    @Column(columnDefinition = "jsonb")
+    private CustomerResponseDTO customerDetails;
 
-    @Convert(converter = JsonConverter.class)
-    @Column(columnDefinition = "json", name = "productDetails")
-    private Product productDetails;
+    @Type(JsonType.class)
+    @Column(columnDefinition = "jsonb")
+    private SellerResponseDTO sellerDetails;
+
+    @Type(JsonType.class)
+    @Column(columnDefinition = "jsonb")
+    private ProductResponseDTO productDetails;
 
     @Column(name = "quantity")
     private int qty;
 
-    @Column(name = "orderId", length = 10, unique = true)
+    @Column(name = "orderId", unique = true)
     private String orderId;
 
     @CreationTimestamp

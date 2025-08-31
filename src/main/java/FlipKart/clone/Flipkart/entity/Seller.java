@@ -31,7 +31,7 @@ public class Seller {
     String name;
 
     @Column(name = "businessName")
-    @NotBlank(message = "seller shop name is mandatory:")
+    @NotBlank(message = "Business name is mandatory:")
     String businessName;
 
     @Column(name = "sellerId", unique = true)
@@ -86,6 +86,6 @@ public class Seller {
 
     @NotBlank(message = "Vendor address is mandatory: ")
     @Column(name = "address", length = 300)
-    private String pickUpAddress;
+    private String vendorAddress;
 
 }

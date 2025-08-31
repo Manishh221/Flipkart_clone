@@ -21,12 +21,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order saveOrder(Order order) {
 
-        log.info("generating orderId for the placed order for the: {} ", order.getCustomerDetails().getName());
+        log.info("generating orderId for the placed order for the: {} ", order.getCustomerDetails().getCustomerName());
         order.setOrderId(OrderIdGenerator.generateUniqueCustId());
         log.info("orderService: order is being saved {} ", order.getOrderId());
-        orderRepository.save(order);
-
-        return null;
+        return orderRepository.save(order);
     }
 
     @Override
